@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/all_category"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Все категории" />
+        <item
+            android:id="@+id/football"
+            android:icon="@drawable/football"
+            android:title="Футбол" />
+        <item
+            android:id="@+id/basketball"
+            android:icon="@drawable/basketball"
+            android:title="Баскетбол" />
+        <item
+            android:id="@+id/volleyball"
+            android:icon="@drawable/volleyball"
+            android:title="Волейбол" />
+        <item
+            android:id="@+id/hockey"
+            android:icon="@drawable/hockey"
+            android:title="Хоккей" />
+        <item
+            android:id="@+id/tennis"
+            android:icon="@drawable/tennis"
+            android:title="Теннис"/>
+        <item
+            android:id="@+id/table_tennis"
+            android:icon="@drawable/table_tennis"
+            android:title="Настольный теннис"/>
+        <item
+            android:id="@+id/roller_skates"
+            android:icon="@drawable/roller_skates"
+            android:title="Роллики"/>
+        <item
+            android:id="@+id/bike"
+            android:icon="@drawable/bike"
+            android:title="Велосипед"/>
+        <item
+            android:id="@+id/skateboard"
+            android:icon="@drawable/skateboard"
+            android:title="Скейтборд"/>
+        <item
+            android:id="@+id/workout"
+            android:icon="@drawable/workout"
+            android:title="Турники, брусья"/>
+        <item
+            android:id="@+id/ice_rink"
+            android:icon="@drawable/ice_rink"
+            android:title="Каток"/>
+        <item
+            android:id="@+id/diving"
+            android:icon="@drawable/diving"
+            android:title="Дайвинг"/>
+        <item
+            android:id="@+id/bmx"
+            android:icon="@drawable/bmx"
+            android:title="Площадки для BMX и скейтбординга"/>
+        <item
+            android:id="@+id/rent"
+            android:icon="@drawable/rent"
+            android:title="Прокат"/>
+
+    </group>
+
+    <item android:title="Пользователь">
+        <menu>
+            <item
+                android:id="@+id/login"
+                android:icon="@drawable/account"
+                android:title="Войти"/>
+
+            <item
+                android:id="@+id/exit"
+                android:icon="@drawable/login"
+                android:title="Выйти"/>
+        </menu>
+    </item>
+</menu>
