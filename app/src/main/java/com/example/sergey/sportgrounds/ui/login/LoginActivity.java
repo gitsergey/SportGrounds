@@ -98,16 +98,22 @@ public class LoginActivity extends AppCompatActivity {
         loginRequest.setPassword(password);
 
         if(getNetworkAvailability()) {
+            realmService.deleteUser();
             Call<LoginResponse> loginResponseCall = mManager.getLoginService().getLoginAccess(loginRequest);
 
             loginResponseCall.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     LoginResponse loginResponse = response.body();
-                    Log.d(TAG, "onResponse: " + loginResponse.getUser().getName() + " / " + loginResponse.getUser().getEmail());
-                    progressDialog.dismiss();
-                    realmService.addUser(loginResponse);
-                    onLoginSuccess();
+                    if(loginResponse != null) {
+                        Log.d(TAG, "onResponse: " + loginResponse.getUser().getName() + " / " + loginResponse.getUser().getEmail());
+                        progressDialog.dismiss();
+                        realmService.addUser(loginResponse);
+                        onLoginSuccess();
+                    } else {
+                        progressDialog.dismiss();
+                        onLoginFailed();
+                    }
                 }
 
                 @Override

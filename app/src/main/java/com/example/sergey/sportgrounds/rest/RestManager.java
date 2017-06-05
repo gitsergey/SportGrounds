@@ -16,6 +16,7 @@ public class RestManager {
     private LocationService mLocationService;
     private LoginService mLoginService;
     private SignupService mSignupService;
+    private ReservationService mReservationService;
 
     public static final String BASE_URL = "https://sportown.herokuapp.com";
     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -33,7 +34,6 @@ public class RestManager {
                     .client(okHttpClient)
                     .addConverterFactory(buildGsonConverter())
                     .build();
-
             mLocationService = retrofit.create(LocationService.class);
         }
         return mLocationService;
@@ -45,7 +45,6 @@ public class RestManager {
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-
             mLoginService = retrofit2.create(LoginService.class);
         }
         return mLoginService;
@@ -58,9 +57,19 @@ public class RestManager {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             mSignupService = retrofit3.create(SignupService.class);
-
         }
         return mSignupService;
+    }
+
+    public ReservationService getReservationService() {
+        if(mReservationService == null) {
+            Retrofit retrofit4 = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            mReservationService = retrofit4.create(ReservationService.class);
+        }
+        return mReservationService;
     }
 
 

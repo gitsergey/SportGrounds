@@ -14,12 +14,16 @@ import android.widget.TextView;
 
 import com.example.sergey.sportgrounds.R;
 import com.example.sergey.sportgrounds.model.Location;
-import com.example.sergey.sportgrounds.ui.ReservationActivity;
+import com.example.sergey.sportgrounds.model.LoginResponse;
+import com.example.sergey.sportgrounds.ui.reservation.ReservationActivity;
+import com.example.sergey.sportgrounds.ui.login.LoginActivity;
 import com.squareup.picasso.Picasso;
 
 import io.realm.Realm;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements IDetailView {
+
+    private IDetailPresenter presenter;
 
     TextView mCategory;
     TextView mName;
@@ -32,29 +36,28 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Intent intent = new Intent();
-
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        configViews();
+        presenter = new DetailPresenterImpl(this, Realm.getDefaultInstance());
+        loadData();
+
+    }
+
+    private void loadData() {
         String locationLat = getIntent().getStringExtra("locationLat");
-        String locationLong = getIntent().getStringExtra("locationLong");
 
-        Realm realm = Realm.getDefaultInstance();
+        final Location location = presenter.findLocationData(locationLat);
 
-        Log.d("WTF!", locationLat);
-
-        try {
-            Location location = realm.where(Location.class).equalTo("latitude", locationLat).findFirst();//.equalTo("longitude", locationLong).findFirst();
-            configViews();
-
-            Log.d("DETAILACTIVITY NAME", location.getName() + " " + location.getDescription() + " " );
+        if(location != null) {
+            Log.d("DETAILACTIVITY NAME", location.getName() + " " + location.getDescription() + " ");
 
             mDescription.setText(location.getDescription());
             mMark.setText(String.format("%.1f", location.getRating()));
-            mContacts.setText("Email: email@examle.com\n" + "Tel: +79347234321");
+            mContacts.setText("Вы можете забронировать площадку");
             Picasso.with(DetailActivity.this).load(location.getImages().get(0).getResizedUrl())
                     .error(R.drawable.logo)
                     .into(mImage);
@@ -62,20 +65,25 @@ public class DetailActivity extends AppCompatActivity {
             CollapsingToolbarLayout collapsingToolbar =
                     (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
             collapsingToolbar.setTitle(location.getName());
+        }
 
-            FloatingActionButton reserved = (FloatingActionButton) findViewById(R.id.reserved);
-            reserved.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        FloatingActionButton reserved = (FloatingActionButton) findViewById(R.id.reserved);
+        reserved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginResponse loginResponse = presenter.findUserData();
+                if (loginResponse != null) {
                     Intent intent1 = new Intent(DetailActivity.this, ReservationActivity.class);
+                    intent1.putExtra("locationName", location.getName());
+                    intent1.putExtra("locationId", location.getId().toString());
+                    intent1.putExtra("authToken", loginResponse.getAuthToken());
+                    startActivity(intent1);
+                } else {
+                    Intent intent1 = new Intent(DetailActivity.this, LoginActivity.class);
                     startActivity(intent1);
                 }
-            });
-
-
-        } finally {
-            realm.close();
-        }
+            }
+        });
     }
 
     private void configViews() {

@@ -24,7 +24,6 @@ public class RealmService {
         mRealm.close();
     }
 
-    //find all data in Realm
     public ArrayList<Location> getAllLocations() {
         RealmResults<Location> results = mRealm.where(Location.class).findAll();
         ArrayList<Location> locations = new ArrayList<>();
@@ -35,7 +34,6 @@ public class RealmService {
         return locations;
     }
 
-    //find data (category id) Realm
     public ArrayList<Location> getCategoryLocations(Integer id) {
         RealmResults<Location> results = mRealm.where(Location.class).equalTo("categoryId", id).findAll();
         ArrayList<Location> categoryId = new ArrayList<>();
@@ -74,10 +72,10 @@ public class RealmService {
         final LoginResponse loginResponseRealm = new LoginResponse();
         if(loginResponse != null) {
             mRealm.beginTransaction();
-            mRealm.delete(LoginResponse.class);
             loginResponseRealm.setAuthToken(loginResponse.getAuthToken());
             loginResponseRealm.setUser(loginResponse.getUser());
             Log.d("Add Database", "addUser: " + loginResponse.getUser().getEmail());
+            mRealm.copyToRealmOrUpdate(loginResponseRealm);
             mRealm.commitTransaction();
         } else {
             Log.d("Add Database", "addUser: Failed");

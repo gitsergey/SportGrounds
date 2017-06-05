@@ -43,14 +43,13 @@ public class MainPresenterImpl implements IMainPresenter {
     public void onCreate(Activity activity, Bundle savedInstanceState) {
         realmService = new RealmService(mRealm);
         mManager = new RestManager();
-        mView.showProgress();
         loadDataLocations();
+        mView.showProgress();
     }
 
     @Override
     public void onResume() {
         if( mView != null) {
-//            mView.showProgress();
         }
     }
 

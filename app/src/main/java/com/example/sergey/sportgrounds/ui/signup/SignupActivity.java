@@ -98,6 +98,7 @@ public class SignupActivity extends AppCompatActivity {
         signupRequest.setPassword(password);
 
         if(getNetworkAvailability()) {
+            realmService.deleteUser();
             Call<LoginResponse> loginResponseCall = mManager.getSignupService().getSignupAccess(signupRequest);
 
             loginResponseCall.enqueue(new Callback<LoginResponse>() {

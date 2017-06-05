@@ -45,7 +45,7 @@
             android:name=".ui.signup.SignupActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".ui.ReservationActivity"
+            android:name=".ui.reservation.ReservationActivity"
             android:theme="@style/AppTheme.Dark" />
     </application>
 

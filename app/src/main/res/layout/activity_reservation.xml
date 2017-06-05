@@ -54,6 +54,22 @@
                 android:hint="Время: '12:00'"/>
         </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <EditText
+                android:id="@+id/input_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Комментарий"
+                android:inputType="textMultiLine"
+                android:maxLines="4"
+                />
+        </android.support.design.widget.TextInputLayout>
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_send"
             android:layout_width="fill_parent"
