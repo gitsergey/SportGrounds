@@ -72,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
+
     public void login() {
         Log.d(TAG, "Login");
 
@@ -147,7 +149,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Disable going back to the MainActivity
-        moveTaskToBack(true);
+//        moveTaskToBack(true);
+        finish();
     }
 
     public void onLoginSuccess() {

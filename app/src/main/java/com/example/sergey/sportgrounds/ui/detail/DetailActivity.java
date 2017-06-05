@@ -10,7 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sergey.sportgrounds.R;
 import com.example.sergey.sportgrounds.model.Location;
@@ -25,12 +27,13 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
     private IDetailPresenter presenter;
 
-    TextView mCategory;
-    TextView mName;
-    TextView mDescription;
-    TextView mMark;
-    TextView mContacts;
-    ImageView mImage;
+    private TextView mCategory;
+    private TextView mName;
+    private TextView mDescription;
+    private TextView mMark;
+    private TextView mContacts;
+    private ImageView mImage;
+    private RatingBar mRatingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,17 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
                 }
             }
         });
+
+        mMark.setText(location.getRating().toString());
+        mRatingBar.setRating(Float.valueOf(String.valueOf(location.getRating())));
+
+        mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+
+                Toast.makeText(getApplicationContext(), "рейтинг" + rating, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void configViews() {
@@ -91,5 +105,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         mDescription = (TextView) findViewById(R.id.tv_description);
         mMark = (TextView) findViewById(R.id.tv_mark);
         mContacts = (TextView) findViewById(R.id.tv_contacts);
+        mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
     }
+
 }
