@@ -51,6 +51,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
         configViews();
         presenter = new DetailPresenterImpl(this, Realm.getDefaultInstance());
+        presenter.onCreate(this, savedInstanceState);
         loadData();
 
     }
