@@ -45,9 +45,9 @@ public class ReservationPresenterImpl implements IReservationPresenter {
 
         if(mView.getNetworkAvailability()) {
             mView.showProgress();
-            Call<ReservationResponse> loginResponseCall = restManager.getReservationService().getResrvation(map, reservationRequest);
+            Call<ReservationResponse> reservationResponseCall = restManager.getReservationService().getResrvation(map, reservationRequest);
 
-            loginResponseCall.enqueue(new Callback<ReservationResponse>() {
+            reservationResponseCall.enqueue(new Callback<ReservationResponse>() {
                 @Override
                 public void onResponse(Call<ReservationResponse> call, Response<ReservationResponse> response) {
                     ReservationResponse reservationResponse = response.body();

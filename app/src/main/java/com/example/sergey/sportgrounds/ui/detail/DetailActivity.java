@@ -4,7 +4,9 @@ package com.example.sergey.sportgrounds.ui.detail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.example.sergey.sportgrounds.R;
 import com.example.sergey.sportgrounds.model.Location;
 import com.example.sergey.sportgrounds.model.LoginResponse;
+import com.example.sergey.sportgrounds.rest.Utils;
 import com.example.sergey.sportgrounds.ui.reservation.ReservationActivity;
 import com.example.sergey.sportgrounds.ui.login.LoginActivity;
 import com.squareup.picasso.Picasso;
@@ -34,6 +37,8 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     private TextView mContacts;
     private ImageView mImage;
     private RatingBar mRatingBar;
+//    Snackbar snackbar;
+    CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +75,12 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
             collapsingToolbar.setTitle(location.getName());
         }
 
+        final LoginResponse loginResponse = presenter.findUserData();
+
         FloatingActionButton reserved = (FloatingActionButton) findViewById(R.id.reserved);
         reserved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginResponse loginResponse = presenter.findUserData();
                 if (loginResponse != null) {
                     Intent intent1 = new Intent(DetailActivity.this, ReservationActivity.class);
                     intent1.putExtra("locationName", location.getName());
@@ -93,9 +99,15 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
         mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-
-                Toast.makeText(getApplicationContext(), "рейтинг" + rating, Toast.LENGTH_LONG).show();
+            public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, "Отправить вашу оценку: " + rating, Snackbar.LENGTH_LONG)
+                        .setAction("Отправить", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                presenter.sendRatingRequest(rating, location.getId(), loginResponse.getAuthToken());
+                            }
+                        });
+                snackbar.show();
             }
         });
     }
@@ -106,6 +118,17 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         mMark = (TextView) findViewById(R.id.tv_mark);
         mContacts = (TextView) findViewById(R.id.tv_contacts);
         mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
+    }
+
+    @Override
+    public boolean getNetworkAvailability() {
+        return Utils.isNetworkAvailable(getApplicationContext());
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(getApplicationContext(), "Ошибка подключения", Toast.LENGTH_LONG).show();
     }
 
 }
