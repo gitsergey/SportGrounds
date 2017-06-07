@@ -66,14 +66,16 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
             mDescription.setText(location.getDescription());
             mMark.setText(String.format("%.1f", location.getRating()));
-            mContacts.setText("Вы можете забронировать площадку");
+//            mContacts.setText("Вы можете забронировать площадку");
+            mName.setText(location.getName());
+
             Picasso.with(DetailActivity.this).load(location.getImages().get(0).getResizedUrl())
                     .error(R.drawable.logo)
                     .into(mImage);
 
-            CollapsingToolbarLayout collapsingToolbar =
-                    (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-            collapsingToolbar.setTitle(location.getName());
+//            CollapsingToolbarLayout collapsingToolbar =
+//                    (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+//            collapsingToolbar.setTitle(" ");
         }
 
         final LoginResponse loginResponse = presenter.findUserData();
@@ -117,9 +119,10 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         mImage = (ImageView) findViewById(R.id.backdrop);
         mDescription = (TextView) findViewById(R.id.tv_description);
         mMark = (TextView) findViewById(R.id.tv_mark);
-        mContacts = (TextView) findViewById(R.id.tv_contacts);
+//        mContacts = (TextView) findViewById(R.id.tv_contacts);
         mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
+        mName = (TextView) findViewById(R.id.tv_name);
     }
 
     @Override
