@@ -38,8 +38,10 @@
             <EditText android:id="@+id/input_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
-                android:hint="Дата: '2017-06-12'"/>
+                android:inputType="none"
+                android:textIsSelectable="true"
+                android:hint="Дата:"
+                />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -50,8 +52,9 @@
             <EditText android:id="@+id/input_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="time"
-                android:hint="Время: '12:00'"/>
+                android:inputType="none"
+                android:textIsSelectable="true"
+                android:hint="Время:"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout

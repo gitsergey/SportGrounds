@@ -1,13 +1,21 @@
 package com.example.sergey.sportgrounds.ui.reservation;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.icu.util.Calendar;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.sergey.sportgrounds.R;
@@ -17,7 +25,9 @@ import com.example.sergey.sportgrounds.ui.login.LoginActivity;
 
 import io.realm.Realm;
 
-public class ReservationActivity extends AppCompatActivity implements IReservationView {
+import static android.R.attr.onClick;
+
+public class ReservationActivity extends AppCompatActivity implements IReservationView, View.OnClickListener {
 
     private IReservationPresenter presenter;
 
@@ -26,6 +36,8 @@ public class ReservationActivity extends AppCompatActivity implements IReservati
     private EditText etTime;
     private EditText etComment;
     private Button btnSend;
+
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     private ProgressDialog progressDialog;
 
@@ -51,7 +63,14 @@ public class ReservationActivity extends AppCompatActivity implements IReservati
                 sendRequest(locationId, authToken);
             }
         });
+
+        etDate.setOnClickListener(this);
+        etTime.setOnClickListener(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
+
+
+
 
     private void sendRequest(Integer locationId, String userToken) {
         String date = etDate.getText().toString();
@@ -102,5 +121,50 @@ public class ReservationActivity extends AppCompatActivity implements IReservati
     public void finishActivity() {
         btnSend.setEnabled(true);
         finish();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onClick(View v) {
+        if(v == etDate) {
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+
+                            etDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
+
+        if(v == etTime) {
+            // Get Current Time
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+
+                            etTime.setText(hourOfDay + ":" + minute);
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+        }
     }
 }
