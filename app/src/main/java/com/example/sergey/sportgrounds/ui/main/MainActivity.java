@@ -248,46 +248,46 @@ public class MainActivity extends AppCompatActivity
                 if(location.get(i).getCategory().getId() != null) {
                     switch (location.get(i).getCategory().getId()) {
                         case 1:
-                            map.setIcon(vectorToBitmap(R.drawable.football, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.football, Color.parseColor("#e67e22")));
                             break;
                         case 2:
-                            map.setIcon(vectorToBitmap(R.drawable.basketball, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.basketball, Color.parseColor("#e74c3c")));
                             break;
                         case 3:
-                            map.setIcon(vectorToBitmap(R.drawable.volleyball, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.volleyball, Color.parseColor("#f1c40f")));
                             break;
                         case 4:
-                            map.setIcon(vectorToBitmap(R.drawable.hockey, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.hockey, Color.parseColor("#2980b9")));
                             break;
                         case 5:
-                            map.setIcon(vectorToBitmap(R.drawable.tennis, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.tennis, Color.parseColor("#d35400")));
                             break;
                         case 6:
-                            map.setIcon(vectorToBitmap(R.drawable.table_tennis, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.table_tennis, Color.parseColor("#f39c12")));
                             break;
                         case 7:
-                            map.setIcon(vectorToBitmap(R.drawable.roller_skates, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.roller_skates, Color.parseColor("#2ecc71")));
                             break;
                         case 8:
-                            map.setIcon(vectorToBitmap(R.drawable.bike, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.bike, Color.parseColor("#27ae60")));
                             break;
                         case 9:
-                            map.setIcon(vectorToBitmap(R.drawable.skateboard, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.skateboard, Color.parseColor("#16a085")));
                             break;
                         case 10:
-                            map.setIcon(vectorToBitmap(R.drawable.workout, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.workout, Color.parseColor("#2c3e50")));
                             break;
                         case 11:
-                            map.setIcon(vectorToBitmap(R.drawable.ice_rink, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.ice_rink, Color.parseColor("#3498db")));
                             break;
                         case 12:
-                            map.setIcon(vectorToBitmap(R.drawable.diving, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.diving, Color.parseColor("#34495e")));
                             break;
                         case 13:
-                            map.setIcon(vectorToBitmap(R.drawable.bmx, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.bmx, Color.parseColor("#7f8c8d")));
                             break;
                         case 14:
-                            map.setIcon(vectorToBitmap(R.drawable.rent, Color.parseColor("#0462f9")));
+                            map.setIcon(vectorToBitmap(R.drawable.rent, Color.parseColor("#c0392b")));
                             break;
                         default:
                             break;
