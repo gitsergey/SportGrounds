@@ -107,7 +107,12 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
                         .setAction("Отправить", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                presenter.sendRatingRequest(rating, location.getId(), loginResponse.getAuthToken());
+                                if(loginResponse != null) {
+                                    presenter.sendRatingRequest(rating, location.getId(), loginResponse.getAuthToken());
+                                } else {
+                                    Intent intent1 = new Intent(DetailActivity.this, LoginActivity.class);
+                                    startActivity(intent1);
+                                }
                             }
                         });
                 snackbar.show();
