@@ -64,7 +64,9 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         if(location != null) {
             Log.d("DETAILACTIVITY NAME", location.getName() + " " + location.getDescription() + " ");
 
-            mDescription.setText(location.getDescription());
+            String descr = location.getDescription().toString();
+
+            mDescription.setText(descr.replace("\\n", "\n"));
             mMark.setText(String.format("%.1f", location.getRating()));
 //            mContacts.setText("Вы можете забронировать площадку");
             mName.setText(location.getName());

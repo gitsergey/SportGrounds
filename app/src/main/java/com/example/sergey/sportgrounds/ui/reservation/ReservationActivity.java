@@ -3,10 +3,8 @@ package com.example.sergey.sportgrounds.ui.reservation;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.icu.util.Calendar;
+import java.util.Calendar;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -123,7 +121,6 @@ public class ReservationActivity extends AppCompatActivity implements IReservati
         finish();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
         if(v == etDate) {

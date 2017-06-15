@@ -63,7 +63,7 @@ public class RealmService {
             locationRealm.setImages(location.getImages());
             locationRealm.setCategory(location.getCategory());
             mRealm.copyToRealmOrUpdate(locationRealm);
-            Log.d("Add Database", location.getId() + " " + location.getName() + " CategoryId: " + location.getCategory().getId() + " /Image URL: " + location.getImages().get(0).getOriginUrl());
+//            Log.d("Add Database", location.getId() + " " + location.getName() + " CategoryId: " + location.getCategory().getId() + " /Image URL: " + location.getImages().get(0).getOriginUrl());
             mRealm.commitTransaction();
         }
     }

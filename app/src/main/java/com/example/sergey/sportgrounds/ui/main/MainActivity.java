@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity
                             map.setIcon(vectorToBitmap(R.drawable.table_tennis, Color.parseColor("#f39c12")));
                             break;
                         case 7:
-                            map.setIcon(vectorToBitmap(R.drawable.roller_skates, Color.parseColor("#2ecc71")));
+                            map.setIcon(vectorToBitmap(R.drawable.roller_skates, Color.parseColor("#16a085")));
                             break;
                         case 8:
                             map.setIcon(vectorToBitmap(R.drawable.bike, Color.parseColor("#27ae60")));
