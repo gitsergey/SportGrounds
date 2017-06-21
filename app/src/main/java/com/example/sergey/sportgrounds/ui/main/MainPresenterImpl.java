@@ -50,6 +50,7 @@ public class MainPresenterImpl implements IMainPresenter {
     @Override
     public void onResume() {
         if( mView != null) {
+            findUserData();
         }
     }
 
@@ -114,12 +115,15 @@ public class MainPresenterImpl implements IMainPresenter {
         });
     }
 
+    @Override
     public void findUserData() {
         LoginResponse loginResponse = realmService.getUserData();
         if(loginResponse != null) {
             mView.initNavHeader(loginResponse.getUser().getName(), loginResponse.getUser().getEmail());
+            mView.showNavBarLoginOrExit(true);
         } else {
             mView.initNavHeader("Youre name", "youreemail@sportown.com");
+            mView.showNavBarLoginOrExit(false);
         }
     }
 

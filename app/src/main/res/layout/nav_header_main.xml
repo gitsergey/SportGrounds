@@ -13,14 +13,6 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:weightSum="1">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_gravity="left"
-        android:layout_width="74dp"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/account"
-        android:layout_weight="0.50" />
     <TextView
         android:id="@+id/user_name"
         android:layout_width="match_parent"

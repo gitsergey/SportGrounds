@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import java.util.Calendar;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,13 +16,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.sergey.sportgrounds.R;
-import com.example.sergey.sportgrounds.model.LoginResponse;
 import com.example.sergey.sportgrounds.rest.Utils;
-import com.example.sergey.sportgrounds.ui.login.LoginActivity;
 
-import io.realm.Realm;
-
-import static android.R.attr.onClick;
 
 public class ReservationActivity extends AppCompatActivity implements IReservationView, View.OnClickListener {
 

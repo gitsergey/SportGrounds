@@ -10,4 +10,5 @@ public interface IMainView {
     void hideProgress();
     void createMarkerLocation(List<Location> location);
     void initNavHeader(String name, String email);
+    void showNavBarLoginOrExit(boolean userLogin);
 }

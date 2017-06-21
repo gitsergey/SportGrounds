@@ -17,4 +17,6 @@ public interface IMainPresenter {
     ArrayList<Location> getAllLocations();
     ArrayList<Location> getCategoryLocations(Integer id);
     void deleteUser();
+    void findUserData();
+
 }

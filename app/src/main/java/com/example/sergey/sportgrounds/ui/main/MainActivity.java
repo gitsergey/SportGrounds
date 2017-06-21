@@ -1,6 +1,7 @@
 package com.example.sergey.sportgrounds.ui.main;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -58,6 +60,11 @@ public class MainActivity extends AppCompatActivity
     private ProgressDialog mDialog;
     private IMainPresenter presenter;
     private GoogleMap.InfoWindowAdapter customInfoWindowAdapter;
+    TextView tvUsername;
+    TextView tvUserEmail;
+    View loginItem;
+    View exitItem;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +80,12 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        menu = navigationView.getMenu();
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+        tvUsername = (TextView)header.findViewById(R.id.user_name);
+        tvUserEmail = (TextView)header.findViewById(R.id.user_email);
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapView);
@@ -93,13 +105,14 @@ public class MainActivity extends AppCompatActivity
 
         presenter = new MainPresenterImpl(Realm.getDefaultInstance(), this);
         presenter.onCreate(this, savedInstanceState);
-
     }
 
+    private void init(){
+        tvUsername = (TextView) findViewById(R.id.user_name);
+        tvUserEmail = (TextView) findViewById(R.id.user_email);
+    }
     @Override
     public void initNavHeader(String name, String email) {
-        TextView tvUsername = (TextView) findViewById(R.id.user_name);
-        TextView tvUserEmail = (TextView) findViewById(R.id.user_email);
         tvUsername.setText(name);
         tvUserEmail.setText(email);
     }
@@ -198,6 +211,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent1);
         } else if (id == R.id.exit) {
             presenter.deleteUser();
+            presenter.findUserData();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -235,6 +249,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void hideProgress() {
         mDialog.dismiss();
+    }
+
+    @Override
+    public void showNavBarLoginOrExit(boolean userLogin) {
+
+        if(userLogin != false) {
+            menu.findItem(R.id.exit).setVisible(true);
+            menu.findItem(R.id.login).setVisible(false);
+        } else {
+            menu.findItem(R.id.exit).setVisible(false);
+            menu.findItem(R.id.login).setVisible(true);
+        }
     }
 
     @Override
