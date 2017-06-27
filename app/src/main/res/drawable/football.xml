@@ -1,3 +1,10 @@
+<!--
+  ~ Created by Sergey Parfinovich on 27.06.17 12:19
+  ~ Copyright (c) 2017. All rights reserved.
+  ~
+  ~ Last modified 15.03.17 11:29
+  -->
+
 <vector android:height="24dp" android:viewportHeight="438.161"
     android:viewportWidth="438.162" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#FF000000" android:pathData="M330.5,46.1m-36.9,0a36.9,36.9 0,1 1,73.8 0a36.9,36.9 0,1 1,-73.8 0"/>

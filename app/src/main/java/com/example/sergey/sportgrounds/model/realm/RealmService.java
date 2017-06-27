@@ -1,3 +1,10 @@
+/*
+ * Created by Sergey Parfinovich on 27.06.17 12:19
+ * Copyright (c) 2017. All rights reserved.
+ *
+ * Last modified 15.06.17 20:53
+ */
+
 package com.example.sergey.sportgrounds.model.realm;
 
 import android.util.Log;
