@@ -7,5 +7,5 @@
 - Picasso - загрузка и кэширование изображений
 - Архитектуру MVP
 
-Галерея экоанов приложения:
+#####Экраны приложения:
 <a>https://docs.google.com/presentation/d/1BHVOv_goP4KaXEOxc3pZEDY4Ff3l45yG-xPSYB91epU/edit#slide=id.g1e7756a08b_0_0</a>
