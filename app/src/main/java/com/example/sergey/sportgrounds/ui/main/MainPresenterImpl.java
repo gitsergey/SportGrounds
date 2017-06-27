@@ -2,19 +2,13 @@ package com.example.sergey.sportgrounds.ui.main;
 
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.sergey.sportgrounds.model.Location;
 import com.example.sergey.sportgrounds.model.LoginResponse;
-import com.example.sergey.sportgrounds.model.User;
 import com.example.sergey.sportgrounds.model.realm.RealmService;
 import com.example.sergey.sportgrounds.rest.RestManager;
-import com.example.sergey.sportgrounds.rest.Utils;
-import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +29,6 @@ public class MainPresenterImpl implements IMainPresenter {
     public MainPresenterImpl(Realm realm, IMainView mView) {
         this.mRealm = realm;
         this.mView = mView;
-//        realmService = new RealmService(mRealm);
     }
 
 
@@ -65,7 +58,6 @@ public class MainPresenterImpl implements IMainPresenter {
         mView = null;
     }
 
-
     @Override
     public ArrayList<Location> getAllLocations() {
         return realmService.getAllLocations();
@@ -75,7 +67,6 @@ public class MainPresenterImpl implements IMainPresenter {
     public ArrayList<Location> getCategoryLocations(Integer id) {
         return realmService.getCategoryLocations(id);
     }
-
 
     private void loadDataLocations() {
         Call<List<Location>> listCall = mManager.getLocatoinService().getAllLocations();

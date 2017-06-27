@@ -3,13 +3,13 @@ package com.example.sergey.sportgrounds.ui.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -30,14 +30,12 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
     private IDetailPresenter presenter;
 
-    private TextView mCategory;
     private TextView mName;
     private TextView mDescription;
     private TextView mMark;
-    private TextView mContacts;
     private ImageView mImage;
     private RatingBar mRatingBar;
-//    Snackbar snackbar;
+
     CoordinatorLayout coordinatorLayout;
 
     @Override
@@ -56,6 +54,17 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void loadData() {
         String locationLat = getIntent().getStringExtra("locationLat");
 
@@ -68,16 +77,11 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
             mDescription.setText(descr.replace("\\n", "\n"));
             mMark.setText(String.format("%.1f", location.getRating()));
-//            mContacts.setText("Вы можете забронировать площадку");
             mName.setText(location.getName());
 
             Picasso.with(DetailActivity.this).load(location.getImages().get(0).getResizedUrl())
                     .error(R.drawable.logo)
                     .into(mImage);
-
-//            CollapsingToolbarLayout collapsingToolbar =
-//                    (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-//            collapsingToolbar.setTitle(" ");
         }
 
         final LoginResponse loginResponse = presenter.findUserData();
@@ -126,7 +130,6 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         mImage = (ImageView) findViewById(R.id.backdrop);
         mDescription = (TextView) findViewById(R.id.tv_description);
         mMark = (TextView) findViewById(R.id.tv_mark);
-//        mContacts = (TextView) findViewById(R.id.tv_contacts);
         mRatingBar = (RatingBar) findViewById(R.id.ratingBar);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_content);
         mName = (TextView) findViewById(R.id.tv_name);

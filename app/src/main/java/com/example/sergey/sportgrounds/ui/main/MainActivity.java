@@ -1,8 +1,6 @@
 package com.example.sergey.sportgrounds.ui.main;
 
 import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,12 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -26,14 +21,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sergey.sportgrounds.R;
 import com.example.sergey.sportgrounds.adapter.CustomInfoWindowAdapter;
 import com.example.sergey.sportgrounds.model.Location;
-import com.example.sergey.sportgrounds.model.LoginResponse;
 import com.example.sergey.sportgrounds.rest.Utils;
 import com.example.sergey.sportgrounds.ui.detail.DetailActivity;
 import com.example.sergey.sportgrounds.ui.login.LoginActivity;
@@ -55,15 +48,12 @@ import io.realm.RealmConfiguration;
 public class MainActivity extends AppCompatActivity
         implements IMainView, NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
-//    public static Context applicationContext;
     GoogleMap mMap;
     private ProgressDialog mDialog;
     private IMainPresenter presenter;
     private GoogleMap.InfoWindowAdapter customInfoWindowAdapter;
     TextView tvUsername;
     TextView tvUserEmail;
-    View loginItem;
-    View exitItem;
     Menu menu;
 
     @Override
@@ -107,10 +97,6 @@ public class MainActivity extends AppCompatActivity
         presenter.onCreate(this, savedInstanceState);
     }
 
-    private void init(){
-        tvUsername = (TextView) findViewById(R.id.user_name);
-        tvUserEmail = (TextView) findViewById(R.id.user_email);
-    }
     @Override
     public void initNavHeader(String name, String email) {
         tvUsername.setText(name);
@@ -136,8 +122,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    //Navigation and ToolBar
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -219,8 +203,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    //Map function
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -233,8 +215,6 @@ public class MainActivity extends AppCompatActivity
     public boolean getNetworkAvailability() {
         return Utils.isNetworkAvailable(getApplicationContext());
     }
-
-    //MainView implement metodes
 
     @Override
     public void showProgress() {
@@ -346,6 +326,5 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra("locationLat", String.valueOf(marker.getPosition().latitude));
         intent.putExtra("locationLong", String.valueOf(marker.getPosition().longitude));
         startActivity(intent);
-        Toast.makeText(this, String.valueOf(marker.getPosition().latitude) + " || " + String.valueOf(marker.getPosition().longitude), Toast.LENGTH_LONG).show();
     }
 }

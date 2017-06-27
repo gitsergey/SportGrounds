@@ -12,8 +12,6 @@ public interface IDetailPresenter {
 
     void onCreate(Activity activity, Bundle savedInstanceState);
     Location findLocationData(String latitude);
-
     void sendRatingRequest(Float rating, Integer locationId, String authToken);
-
     LoginResponse findUserData();
 }

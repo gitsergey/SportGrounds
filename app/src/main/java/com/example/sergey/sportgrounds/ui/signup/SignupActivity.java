@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,23 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sergey.sportgrounds.R;
-import com.example.sergey.sportgrounds.model.LoginResponse;
-import com.example.sergey.sportgrounds.model.SignupRequest;
-import com.example.sergey.sportgrounds.model.realm.RealmService;
-import com.example.sergey.sportgrounds.rest.RestManager;
 import com.example.sergey.sportgrounds.rest.Utils;
 import com.example.sergey.sportgrounds.ui.login.LoginActivity;
 
 import io.realm.Realm;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class SignupActivity extends AppCompatActivity {
-    private static final String TAG = "SignupActivity";
+public class SignupActivity extends AppCompatActivity implements ISignupView {
 
-    private RestManager mManager;
-    private RealmService realmService;
+    private ISignupPresenter presenter;
+    private ProgressDialog progressDialog;
 
     EditText _nameText;
     EditText _emailText;
@@ -49,13 +40,14 @@ public class SignupActivity extends AppCompatActivity {
         _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
         _signupButton = (Button) findViewById(R.id.btn_signup);
 
-        mManager = new RestManager();
-        realmService = new RealmService(Realm.getDefaultInstance());
+        presenter = new SingupPresenterImpl(this, Realm.getDefaultInstance());
+        presenter.onCreate(this, savedInstanceState);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signup();
+                _signupButton.setEnabled(false);
+                presenter.signup(_nameText.getText().toString(), _emailText.getText().toString(), _passwordText.getText().toString());
             }
         });
 
@@ -71,74 +63,35 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    public void signup() {
-        Log.d(TAG, "Signup");
-
-        if (!validate()) {
-            onSignupFailed();
-            return;
-        }
-
-        _signupButton.setEnabled(false);
-
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
+    @Override
+    public void signupProgressStart() {
+        progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
-
-        String name = _nameText.getText().toString();
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
-
-        // signup logic
-        final SignupRequest signupRequest = new SignupRequest();
-        signupRequest.setName(name);
-        signupRequest.setEmail(email);
-        signupRequest.setPassword(password);
-
-        if(getNetworkAvailability()) {
-            realmService.deleteUser();
-            Call<LoginResponse> loginResponseCall = mManager.getSignupService().getSignupAccess(signupRequest);
-
-            loginResponseCall.enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    LoginResponse loginResponse = response.body();
-                    Log.d(TAG, "onResponse: " + loginResponse.getUser().getName() + " / " + loginResponse.getUser().getEmail());
-                    progressDialog.dismiss();
-                    realmService.addUser(loginResponse);
-                    onSignupSuccess();
-                }
-
-                @Override
-                public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Log.d(TAG, "onFailure: Call Error");
-                    progressDialog.dismiss();
-                    onSignupFailed();
-                }
-            });
-
-        } else {
-            progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_LONG);
-            onSignupFailed();
-        }
     }
 
+    @Override
+    public void signupProgressStop() {
+        progressDialog.dismiss();
+    }
 
+    @Override
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
     }
 
+    @Override
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
         _signupButton.setEnabled(true);
     }
 
+    @Override
     public boolean validate() {
         boolean valid = true;
 
@@ -180,7 +133,13 @@ public class SignupActivity extends AppCompatActivity {
         return valid;
     }
 
+    @Override
     public boolean getNetworkAvailability() {
         return Utils.isNetworkAvailable(getApplicationContext());
+    }
+
+    @Override
+    public void networkError() {
+        Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_LONG);
     }
 }

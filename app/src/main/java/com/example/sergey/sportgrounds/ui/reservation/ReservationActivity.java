@@ -61,9 +61,6 @@ public class ReservationActivity extends AppCompatActivity implements IReservati
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-
-
-
     private void sendRequest(Integer locationId, String userToken) {
         String date = etDate.getText().toString();
         String time = etTime.getText().toString();
@@ -144,7 +141,6 @@ public class ReservationActivity extends AppCompatActivity implements IReservati
             mHour = c.get(Calendar.HOUR_OF_DAY);
             mMinute = c.get(Calendar.MINUTE);
 
-            // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
 

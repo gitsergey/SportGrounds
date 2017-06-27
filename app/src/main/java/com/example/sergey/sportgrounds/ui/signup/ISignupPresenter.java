@@ -1,12 +1,12 @@
-package com.example.sergey.sportgrounds.ui.login;
+package com.example.sergey.sportgrounds.ui.signup;
 
 
 import android.app.Activity;
 import android.os.Bundle;
 
-public interface ILoginPresenter {
+public interface ISignupPresenter {
     void onCreate(Activity activity, Bundle savedInstanceState);
     void onResume();
     void onDestroy();
-    void login(String email, String password);
+    void signup(String name, String email, String password);
 }

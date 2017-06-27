@@ -9,7 +9,6 @@ import com.example.sergey.sportgrounds.model.Location;
 import com.example.sergey.sportgrounds.model.LoginResponse;
 import com.example.sergey.sportgrounds.model.RatingRequest;
 import com.example.sergey.sportgrounds.model.RatingResponse;
-import com.example.sergey.sportgrounds.model.ReservationResponse;
 import com.example.sergey.sportgrounds.rest.RestManager;
 
 import java.util.HashMap;
